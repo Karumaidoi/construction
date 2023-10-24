@@ -10,7 +10,7 @@ export function useDelete() {
       queryClient.invalidateQueries({
         queryKey: ['books'],
       });
-      toast.success('Order deleted successfully');
+      toast.success('Project deleted successfully');
     },
     onError: () => {
       toast.error('Something went wrong');

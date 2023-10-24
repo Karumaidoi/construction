@@ -17,8 +17,11 @@ export default function DashboardAppPage() {
   const theme = useTheme();
   const { data: recentBids, isLoading } = useRecentBookings();
   const { books, isLoading: gettingBooks } = useBooks();
-  const activeBids = recentBids?.map((bid) => bid?.isAccepted === true);
-  const declinedBids = recentBids?.map((bid) => bid?.isAccepted === false);
+  const activeBids = recentBids?.filter((bid) => bid?.isAccepted === true);
+  const declinedBids = recentBids?.filter((bid) => bid?.isAccepted === false);
+
+  console.log(activeBids);
+  console.log(declinedBids);
 
   if (isLoading || gettingBooks)
     return (
@@ -48,11 +51,15 @@ export default function DashboardAppPage() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Active Bids" total={activeBids ?? 0} icon={'ant-design:diff-outlined'} />
+            <AppWidgetSummary title="Active Bids" total={activeBids?.length ?? 0} icon={'ant-design:diff-outlined'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Declined Bids" total={declinedBids ?? 0} icon={'ant-design:aim-outlined'} />
+            <AppWidgetSummary
+              title="Declined Bids"
+              total={declinedBids?.length ?? 0}
+              icon={'ant-design:aim-outlined'}
+            />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
